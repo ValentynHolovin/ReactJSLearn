@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+    <body>
+    <h1>Test</h1>
+    <div id = 'container'></div>
+        <script type="text/javascript">
+            var topic = "JavaScript";
+
+            if (topic) {
+                let topic = "React";
+                console.log('block', topic);
+            }
+            console.log('global', topic);
+            
+            var div, 
+                container = document.getElementById('container');
+            
+            for (let i = 0; i < 5; i++) {
+                div = document.createElement('div');
+                div.id = 'div';
+                console.log(`i = ${i}`);
+                div.onclick = function () {
+                    alert('This is box #' + i);
+                }
+                container.appendChild(div);
+            }
+
+            testDefaultVar();
+
+            var testArrowFunc = (string1, string2) => `${string1} and ${string2}`;
+            console.log(testArrowFunc('bla-bla-bla', 'tro-lo-lo'));
+            
+            function testDefaultVar(name = "Valik", activity = "sllep") {
+                console.log(`${name} loves ${activity}`);
+            }
+        </script>
+</body>
+</html>

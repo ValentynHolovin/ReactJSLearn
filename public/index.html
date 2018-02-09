@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>test</title>
     <link href="style.css" rel="stylesheet">
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 </head>
     <body>
     <h1>Test</h1>
@@ -54,6 +55,91 @@
 
             console.log(bread, meat);
             console.log(sandwich.bread, sandwich.meat);
+
+            var name = "Tallac";
+            var elevation = 9738;
+
+            var print = function () {
+                console.log(`Mt. ${this.name} is ${this.elevation} feet tall`);
+            }
+
+            var funHike = {name, elevation, print};
+
+            funHike.print();
+
+            var name1 = "Valik";
+            var sound = "go fast";
+
+            const skier = {
+                name1,
+                sound,
+                powderYell() {
+                    let yell = this.sound.toLocaleUpperCase();
+                    console.log(`${yell} ${yell} ${yell}!!!`);
+                },
+                speed(mph) {
+                    this.speed = mph;
+                    console.log('speed:', mph);
+                }
+            };
+
+            skier.powderYell();
+            skier.speed(350);
+            console.log(JSON.stringify(skier));
+
+            var lakes = ["Donner", "Marlette", "Fallen Leaf", "Cascade"];
+            var [first, ...rest] = lakes;
+            console.log(rest.join(", "));
+            console.log(lakes.join(", "));
+
+            function directions(...args) {
+                var [start, ...remaning] = args;
+                var [finish, ...stop] = remaning.reverse();
+
+                console.log(`drive through ${args.length} towns`);
+                console.log(`start in ${start}`);
+                console.log(`the destination is ${finish}`);
+                console.log(`stopping ${stop.length} times in between`);
+            }
+
+            directions("Truckee", "Tahoe City", "Sunnyside", "Homewood", "Tahoma");
+
+            const getFakeMembers = count => new Promise((resolves, rejects) => {
+                const api = `https://api.randomuser.me/?nat=US&results=${count}`;
+                const request = new XMLHttpRequest();
+                request.open('GET', api);
+                request.onload = () =>
+                    (request.status === 200) ?
+                        resolves(JSON.parse(request.response).results) :
+                        rejects(Error(request.statusText));
+                request.onerror = (err) => rejects(err);
+                request.send()
+            });
+            getFakeMembers(5).then(
+                members => console.log(members),
+                err => console.error(
+                    new Error("cannot load members from randomuser.me"))
+            );
+
+            fetch("https://api.randomuser.me/?nat=US&results=10")
+                .then(response => response.json())
+                .then(members => console.log(members))
+                .catch(err => console.error(err));
+
+            class Vacation {
+                constructor(destination, length) {
+                    this.destination = destination;
+                    this.length = length;
+                }
+
+                print() {
+                    console.log(`${this.destination} will take ${this.length} days.`);
+                }
+
+            }
+
+            const trip = new Vacation("Santiago, Chile", 9);
+            trip.print();
         </script>
 </body>
 </html>
